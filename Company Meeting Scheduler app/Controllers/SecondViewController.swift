@@ -1,4 +1,9 @@
-
+//
+//  SecondViewController.swift
+//  Company Meeting Scheduler
+//
+//  Created by Roro on 4/24/22.
+//
 
 import UIKit
 
@@ -66,27 +71,18 @@ class SecondViewController: UIViewController {
                     {
                         self.jsonParsing(json: result)
                         print(json)
-                        var n = 0
                         for jsonElement in result {
                             let a = "\(jsonElement["start_time"] as? String ?? "")"
                             let b = "\(jsonElement["end_time"] as? String ?? "")"
                             print(a)
                             print(b)
-                            
-                            if (formatter2.string(from: startTime.date) >= a && formatter2.string(from: startTime.date) <= b) || (formatter2.string(from: endTime.date) >= a && formatter2.string(from: endTime.date) <= b) {
+                            var n = 0
+                            if (formatter2.string(from: startTime.date) >= a && formatter2.string(from: endTime.date) <= a) || (formatter2.string(from: startTime.date) >= b && formatter2.string(from: endTime.date) <= b) {
                                 n = n + 1
                             }
                         }
-                        print(n)
-                        
-                        if n == 0 {
-                            DispatchQueue.main.async {
-                                showAlert(title: "Slot Available", message: "")
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                showAlert(title: "Slot Available", message: "")
-                            }
+                        if n = 0 {
+                            
                         }
                     }
                 }
@@ -95,16 +91,9 @@ class SecondViewController: UIViewController {
         task.resume()
     }
     
-    func showAlert(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
-            self.present(alert, animated: true, completion: nil)
-        }
-    
     func jsonParsing(json : [[String: Any]]) {
         print(json)
         dictionary = json
-        let c = dictionary.count
     }
     
     @IBAction func descriptionClicked(_ sender: Any) {
