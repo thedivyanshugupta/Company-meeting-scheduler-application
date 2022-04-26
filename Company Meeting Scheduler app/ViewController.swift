@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let todaysDate = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         let DateInFormat = dateFormatter.string(from: todaysDate)
         TodayDate.text = DateInFormat
         print(DateInFormat)

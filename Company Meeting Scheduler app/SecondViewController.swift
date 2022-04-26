@@ -81,11 +81,12 @@ class SecondViewController: UIViewController {
                         
                         if n == 0 {
                             DispatchQueue.main.async {
+//  An object that manages the execution of tasks serially or concurrently on your app's main thread or on a background thread.
                                 showAlert(title: "Slot Available", message: "")
                             }
                         } else {
                             DispatchQueue.main.async {
-                                showAlert(title: "Slot Available", message: "")
+                                showAlert(title: "Slot Not Available", message: "")
                             }
                         }
                     }
@@ -107,9 +108,6 @@ class SecondViewController: UIViewController {
         let c = dictionary.count
     }
     
-    @IBAction func descriptionClicked(_ sender: Any) {
-       
-    }
     @IBAction func submitButtonPresed(_ sender: Any) {
         getData()
     }
