@@ -11,27 +11,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
+        getTodayMeeting()
         cellTableVieew.delegate = self
         cellTableVieew.dataSource = self
-        
     }
-    func getData() {
-        
+    
+    func getTodayMeeting() {
         let todaysDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let DateInFormat = dateFormatter.string(from: todaysDate)
         TodayDate.text = DateInFormat
         print(DateInFormat)
-        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(DateInFormat)")
+        getMeetingData(meetingDate: DateInFormat)
+    }
+    
+    func getMeetingData(meetingDate: String) {
+        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(meetingDate)")
         let session = URLSession.shared
-        print(DateInFormat)
+        print(meetingDate)
         let task = session.dataTask(with:serviceUrl!) { (serviceData, serviceResponse, error) in
             if error == nil {
                 let httpResponse = serviceResponse as! HTTPURLResponse
                 if(httpResponse.statusCode == 200) {
                     let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
+// mutableContainers :Specifies that arrays and dictionaries in the returned object are mutable.
                     if let result = json as? [[String: Any]]
                     {
                         self.jsonParsing(json: result)
@@ -59,11 +63,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cells") as! Cells
         let number = dictionary[indexPath.row]
         cell.startEnd.text = "\(number["start_time"] as? String ?? "") - \(number["end_time"] as? String ?? "")"
-        cell.descript.text = number["description"] as! String
+        cell.descript.text = number["description"] as? String
         return cell
     }
     
-    func convertNextDate() {
+    func getNextDateMeeting() {
         let currentDate = Date()
         var dateComponent = DateComponents()
         dateComponent.day = 1
@@ -76,24 +80,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         formatter.dateFormat = "dd/MM/yyyy"
         print(formatter.string(from: futureDate!))
         TodayDate.text = formatter.string(from: futureDate!)
-        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: futureDate!))")
-        let session = URLSession.shared
-        let task = session.dataTask(with:serviceUrl!) { (serviceData, serviceResponse, error) in
-            if error == nil {
-                let httpResponse = serviceResponse as! HTTPURLResponse
-                if(httpResponse.statusCode == 200) {
-                    let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
-                    if let result = json as? [[String: Any]]
-                    {
-                        self.jsonParsing(json: result)
-                    }
-                }
-            }
-        }
-        task.resume()
+        getMeetingData(meetingDate: formatter.string(from: futureDate!))
     }
     
-    func convertPrevDate() {
+    func getPrevDateMeeting() {
         let prevDate = Date().addingTimeInterval(-1 * 24 * 60 * 60)
         print(prevDate)
         let formatter = DateFormatter()
@@ -102,30 +92,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         formatter.dateFormat = "dd/MM/yyyy"
         print(formatter.string(from: prevDate))
         TodayDate.text = formatter.string(from: prevDate)
-        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: prevDate))")
-        let session = URLSession.shared
-        let task = session.dataTask(with:serviceUrl!) { (serviceData, serviceResponse, error) in
-            if error == nil {
-                let httpResponse = serviceResponse as! HTTPURLResponse
-                if(httpResponse.statusCode == 200) {
-                    let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
-                    if let result = json as? [[String: Any]]
-                    {
-                        self.jsonParsing(json: result)
-                    }
-                }
-            }
-        }
-        task.resume()
+        getMeetingData(meetingDate: formatter.string(from: prevDate))
     }
     
     @IBAction func nextButton(_ sender: Any) {
-        convertNextDate()
-    
+       getNextDateMeeting()
     }
 
     @IBAction func prevButton(_ sender: Any) {
-        convertPrevDate()
+        getPrevDateMeeting()
     }
 
 }
