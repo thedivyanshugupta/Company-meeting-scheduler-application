@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,11 +13,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Company_Meeting_Scheduler_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XGy-Qd-TcI">
-                                <rect key="frame" x="0.0" y="44" width="428" height="78"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="78"/>
                                 <color key="backgroundColor" red="0.1395681694" green="0.86305976159999997" blue="0.71288033900000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="98y-JK-MRU"/>
@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3i-ov-Y9y">
-                                <rect key="frame" x="325" y="64" width="113" height="50"/>
+                                <rect key="frame" x="272" y="20" width="113" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="113" id="B0E-w3-G83"/>
                                     <constraint firstAttribute="height" constant="50" id="nhm-0k-aSs"/>
@@ -41,7 +41,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzy-dM-tUe">
-                                <rect key="frame" x="23" y="828" width="382" height="53"/>
+                                <rect key="frame" x="23" y="603" width="329" height="53"/>
                                 <color key="backgroundColor" red="0.1395681694" green="0.86305976159999997" blue="0.71288033900000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="53" id="4ZM-sh-9Id"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TodayDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stz-br-NHd">
-                                <rect key="frame" x="114" y="80" width="194" height="26"/>
+                                <rect key="frame" x="114" y="36" width="141" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="jVj-kp-S5S"/>
                                 </constraints>
@@ -66,7 +66,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xcN-mH-pE9">
-                                <rect key="frame" x="-12" y="74" width="126" height="31"/>
+                                <rect key="frame" x="-12" y="30" width="126" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="126" id="64S-bE-eod"/>
                                     <constraint firstAttribute="height" constant="31" id="FnG-Ow-7qY"/>
@@ -82,15 +82,15 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gLu-tC-a2M">
-                                <rect key="frame" x="0.0" y="122" width="428" height="682"/>
+                                <rect key="frame" x="0.0" y="78" width="375" height="511"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cells" rowHeight="124" id="WKf-Pp-b3b" customClass="Cells" customModule="Company_Meeting_Scheduler_app" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="124"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WKf-Pp-b3b" id="RZ7-bR-pwy">
-                                            <rect key="frame" x="0.0" y="0.0" width="428" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="124"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnQ-Vj-AR3">
@@ -159,18 +159,18 @@
             <objects>
                 <viewController id="uSA-Ot-Z2R" customClass="SecondViewController" customModule="Company_Meeting_Scheduler_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="Pte-LQ-URt">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJK-Bc-x33">
-                                <rect key="frame" x="0.0" y="0.0" width="428" height="72"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                                 <color key="backgroundColor" red="0.13956816942161049" green="0.86305976159793818" blue="0.71288033897634095" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="72" id="0CY-Kb-qEa"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCP-Va-Y9h">
-                                <rect key="frame" x="30" y="478" width="368" height="48"/>
+                                <rect key="frame" x="30" y="478" width="315" height="48"/>
                                 <color key="backgroundColor" red="0.1395681694" green="0.86305976159999997" blue="0.71288033900000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="99o-GT-TJw"/>
@@ -205,7 +205,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Description" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgS-6M-Tpi" userLabel="Meeting Description Text Field">
-                                <rect key="frame" x="30" y="372" width="368" height="36"/>
+                                <rect key="frame" x="30" y="372" width="315" height="36"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Ech-l3-UnG"/>
@@ -219,13 +219,13 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCHEDULE A MEETING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cc7-nj-rho">
-                                <rect key="frame" x="82" y="27" width="289" height="23"/>
+                                <rect key="frame" x="82" y="27" width="236" height="23"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Meeting Date                          ▼ " borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xdc-JX-cfz">
-                                <rect key="frame" x="30" y="132" width="368" height="50"/>
+                                <rect key="frame" x="30" y="132" width="315" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Xkx-od-B0i"/>
@@ -235,7 +235,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Start Time                               ▼ " borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Rk-BB-cex">
-                                <rect key="frame" x="30" y="212" width="368" height="50"/>
+                                <rect key="frame" x="30" y="212" width="315" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bZQ-PL-y9X"/>
@@ -245,7 +245,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="End Time                                 ▼ " borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wz4-zW-zqe">
-                                <rect key="frame" x="30" y="292" width="368" height="50"/>
+                                <rect key="frame" x="30" y="292" width="315" height="50"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Gjx-2n-PES"/>

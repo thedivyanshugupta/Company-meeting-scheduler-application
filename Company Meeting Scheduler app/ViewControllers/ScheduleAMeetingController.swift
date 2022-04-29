@@ -150,59 +150,59 @@ class SecondViewController: UIViewController {
         }
         task.resume()
     }
-    
-    override func viewWillTransitionToSize(size: CGSize,   withTransitionCoordinator coordinator:    UIViewControllerTransitionCoordinator) {
-
-        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
-
-            let orient = UIApplication.sharedApplication().statusBarOrientation
-
-            switch orient {
-            case .Portrait:
-                print("Portrait")
-                self.ApplyportraitConstraint()
-                break
-                // Do something
-            default:
-                print("LandScape")
-                // Do something else
-                self.applyLandScapeConstraint()
-                break
-            }
-            }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
-                print("rotation completed")
-        })
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-    }
-
-    func ApplyportraitConstraint(){
-
-     self.view.addConstraint(self.RedViewHeight)
-     self.view.addConstraint(self.RedView_VerticalSpace_To_BlueView)
-     self.view.addConstraint(self.RedView_LeadingSpace_To_SuperView)
-     self.view.addConstraint(self.BlueView_TrailingSpace_To_SuperView)
-
-     self.view.removeConstraint(self.RedViewWidth)
-     self.view.removeConstraint(self.RedView_HorizontalSpace_To_BlueView)
-     self.view.removeConstraint(self.RedView_BottomSpace_To_SuperView)
-     self.view.removeConstraint(self.BlueView_TopSpace_To_SuperView)
-
-
-    }
-    
-    func applyLandScapeConstraint(){
-
-        self.view.removeConstraint(self.RedViewHeight)
-        self.view.removeConstraint(self.RedView_VerticalSpace_To_BlueView)
-        self.view.removeConstraint(self.RedView_LeadingSpace_To_SuperView)
-       self.view.removeConstraint(self.BlueView_TrailingSpace_To_SuperView)
-
-        self.view.addConstraint(self.RedViewWidth)
-        self.view.addConstraint(self.RedView_HorizontalSpace_To_BlueView)
-        self.view.addConstraint(self.RedView_BottomSpace_To_SuperView)
-        self.view.addConstraint(self.BlueView_TopSpace_To_SuperView)
-
-    }
+//
+//    override func viewWillTransitionToSize(size: CGSize,   withTransitionCoordinator coordinator:    UIViewControllerTransitionCoordinator) {
+//
+//        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
+//
+//            let orient = UIApplication.sharedApplication().statusBarOrientation
+//
+//            switch orient {
+//            case .Portrait:
+//                print("Portrait")
+//                self.ApplyportraitConstraint()
+//                break
+//                // Do something
+//            default:
+//                print("LandScape")
+//                // Do something else
+//                self.applyLandScapeConstraint()
+//                break
+//            }
+//            }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+//                print("rotation completed")
+//        })
+//        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//    }
+//
+//    func ApplyportraitConstraint(){
+//
+//     self.view.addConstraint(self.RedViewHeight)
+//     self.view.addConstraint(self.RedView_VerticalSpace_To_BlueView)
+//     self.view.addConstraint(self.RedView_LeadingSpace_To_SuperView)
+//     self.view.addConstraint(self.BlueView_TrailingSpace_To_SuperView)
+//
+//     self.view.removeConstraint(self.RedViewWidth)
+//     self.view.removeConstraint(self.RedView_HorizontalSpace_To_BlueView)
+//     self.view.removeConstraint(self.RedView_BottomSpace_To_SuperView)
+//     self.view.removeConstraint(self.BlueView_TopSpace_To_SuperView)
+//
+//
+//    }
+//
+//    func applyLandScapeConstraint(){
+//
+//        self.view.removeConstraint(self.RedViewHeight)
+//        self.view.removeConstraint(self.RedView_VerticalSpace_To_BlueView)
+//        self.view.removeConstraint(self.RedView_LeadingSpace_To_SuperView)
+//       self.view.removeConstraint(self.BlueView_TrailingSpace_To_SuperView)
+//
+//        self.view.addConstraint(self.RedViewWidth)
+//        self.view.addConstraint(self.RedView_HorizontalSpace_To_BlueView)
+//        self.view.addConstraint(self.RedView_BottomSpace_To_SuperView)
+//        self.view.addConstraint(self.BlueView_TopSpace_To_SuperView)
+//
+//    }
 
     func showAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
