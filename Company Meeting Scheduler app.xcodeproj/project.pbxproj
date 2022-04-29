@@ -60,17 +60,49 @@
 		1C595B742816836300EFDCE0 /* Company Meeting Scheduler app */ = {
 			isa = PBXGroup;
 			children = (
-				1C595B752816836300EFDCE0 /* AppDelegate.swift */,
-				1C595B772816836300EFDCE0 /* SceneDelegate.swift */,
-				1C74FDA82816D51900F3DAA7 /* TodayMeetingController.swift */,
-				1C595B8F2816858C00EFDCE0 /* ScheduleAMeetingController.swift */,
-				1C595B8D281684FC00EFDCE0 /* MeetingDescriptionCell.swift */,
-				1C595B89281684AF00EFDCE0 /* Main.storyboard */,
-				1C595B7E2816836600EFDCE0 /* Assets.xcassets */,
-				1C595B802816836600EFDCE0 /* LaunchScreen.storyboard */,
+				1CA3EA91281A4F6500C4DC9F /* Delegates. */,
+				1CA3EA90281A4F2200C4DC9F /* ViewControllers */,
+				1CA3EA8F281A4F0900C4DC9F /* View */,
+				1CA3EA8E281A4EA000C4DC9F /* Supporting file */,
 				1C595B832816836600EFDCE0 /* Info.plist */,
 			);
 			path = "Company Meeting Scheduler app";
+			sourceTree = "<group>";
+		};
+		1CA3EA8E281A4EA000C4DC9F /* Supporting file */ = {
+			isa = PBXGroup;
+			children = (
+				1C595B7E2816836600EFDCE0 /* Assets.xcassets */,
+				1C595B802816836600EFDCE0 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting file";
+			sourceTree = "<group>";
+		};
+		1CA3EA8F281A4F0900C4DC9F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C595B89281684AF00EFDCE0 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1CA3EA90281A4F2200C4DC9F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1C74FDA82816D51900F3DAA7 /* TodayMeetingController.swift */,
+				1C595B8F2816858C00EFDCE0 /* ScheduleAMeetingController.swift */,
+				1C595B8D281684FC00EFDCE0 /* MeetingDescriptionCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1CA3EA91281A4F6500C4DC9F /* Delegates. */ = {
+			isa = PBXGroup;
+			children = (
+				1C595B752816836300EFDCE0 /* AppDelegate.swift */,
+				1C595B772816836300EFDCE0 /* SceneDelegate.swift */,
+			);
+			path = Delegates.;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

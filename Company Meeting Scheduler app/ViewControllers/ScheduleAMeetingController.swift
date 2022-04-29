@@ -10,11 +10,11 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var meetingTextfield: UITextField!
     @IBOutlet weak var startTimeTextfield: UITextField!
     @IBOutlet weak var endTimeTextfield: UITextField!
+    
     let datePickerSet = UIDatePicker()
     let starttimePickerSet = UIDatePicker()
     let endtimePickerSet = UIDatePicker()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createDatePicker()
@@ -33,6 +33,15 @@ class SecondViewController: UIViewController {
         datePickerSet.preferredDatePickerStyle = .inline
     }
     
+//    @objc func donePressed (format : String, textfield : String,) {
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .short
+//        formatter.timeStyle = .none
+//        formatter.dateFormat = format
+//        meetingTextfield.text = formatter.string(from: datePickerSet.date)
+//        self.view.endEditing(true)
+//    }
+//
     @objc func donePressed () {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
@@ -105,19 +114,27 @@ class SecondViewController: UIViewController {
                     let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
                     if let result = json as? [[String: Any]] {
                         self.jsonParsing(json: result)
-                        print(json)
-                        var n = 0
+//                        print(json)
+                        var slot = 0
                         for jsonElement in result {
-                            let a = "\(jsonElement["start_time"] as? String ?? "")"
-                            let b = "\(jsonElement["end_time"] as? String ?? "")"
-                            print(a)
-                            print(b)
-                            if (formatter2.string(from: starttimePickerSet.date) >= a && formatter2.string(from: starttimePickerSet.date) <= b) || (formatter2.string(from: endtimePickerSet.date) >= a && formatter2.string(from: endtimePickerSet.date) <= b) {
-                                n = n + 1
+                            var meetingStartTime = "\(jsonElement["start_time"] as? String ?? "")"
+                            var meetingEndTime = "\(jsonElement["end_time"] as? String ?? "")"
+//                            print(meetingStartTime.count)
+//                            print(meetingEndTime.count)
+                            if meetingStartTime.count == 4 {
+                                meetingStartTime = "0" + meetingStartTime
+                            }
+                            if meetingEndTime.count == 4 {
+                                meetingEndTime = "0" + meetingEndTime
+                            }
+//                            print(meetingStartTime)
+//                            print(meetingEndTime)
+                            if (formatter2.string(from: starttimePickerSet.date) >= meetingStartTime && formatter2.string(from: starttimePickerSet.date) <= meetingEndTime) || (formatter2.string(from: endtimePickerSet.date) >= meetingStartTime && formatter2.string(from: endtimePickerSet.date) <= meetingEndTime) {
+                                slot = slot + 1
                             }
                         }
-                        print(n)
-                        if n == 0 {
+//                        print(slot)
+                        if slot == 0 {
                             DispatchQueue.main.async {
 // ( An object that manages the execution of tasks serially or concurrently on your app's main thread or on a background thread.
                                 showAlert(title: "Slot Available", message: "")
@@ -134,6 +151,59 @@ class SecondViewController: UIViewController {
         task.resume()
     }
     
+    override func viewWillTransitionToSize(size: CGSize,   withTransitionCoordinator coordinator:    UIViewControllerTransitionCoordinator) {
+
+        coordinator.animateAlongsideTransition({ (UIViewControllerTransitionCoordinatorContext) -> Void in
+
+            let orient = UIApplication.sharedApplication().statusBarOrientation
+
+            switch orient {
+            case .Portrait:
+                print("Portrait")
+                self.ApplyportraitConstraint()
+                break
+                // Do something
+            default:
+                print("LandScape")
+                // Do something else
+                self.applyLandScapeConstraint()
+                break
+            }
+            }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+                print("rotation completed")
+        })
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    }
+
+    func ApplyportraitConstraint(){
+
+     self.view.addConstraint(self.RedViewHeight)
+     self.view.addConstraint(self.RedView_VerticalSpace_To_BlueView)
+     self.view.addConstraint(self.RedView_LeadingSpace_To_SuperView)
+     self.view.addConstraint(self.BlueView_TrailingSpace_To_SuperView)
+
+     self.view.removeConstraint(self.RedViewWidth)
+     self.view.removeConstraint(self.RedView_HorizontalSpace_To_BlueView)
+     self.view.removeConstraint(self.RedView_BottomSpace_To_SuperView)
+     self.view.removeConstraint(self.BlueView_TopSpace_To_SuperView)
+
+
+    }
+    
+    func applyLandScapeConstraint(){
+
+        self.view.removeConstraint(self.RedViewHeight)
+        self.view.removeConstraint(self.RedView_VerticalSpace_To_BlueView)
+        self.view.removeConstraint(self.RedView_LeadingSpace_To_SuperView)
+       self.view.removeConstraint(self.BlueView_TrailingSpace_To_SuperView)
+
+        self.view.addConstraint(self.RedViewWidth)
+        self.view.addConstraint(self.RedView_HorizontalSpace_To_BlueView)
+        self.view.addConstraint(self.RedView_BottomSpace_To_SuperView)
+        self.view.addConstraint(self.BlueView_TopSpace_To_SuperView)
+
+    }
+
     func showAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
