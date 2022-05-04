@@ -3,9 +3,8 @@ import UIKit
 
 class Cells: UITableViewCell {
 
-    @IBOutlet weak var startEnd: UILabel!
-
-    @IBOutlet weak var descript: UILabel!
+    @IBOutlet weak var startEndTime: UILabel!
+    @IBOutlet weak var meetingDescription: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

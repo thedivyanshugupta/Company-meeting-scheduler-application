@@ -110,8 +110,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="descript" destination="LnQ-Vj-AR3" id="FGH-eC-Wou"/>
-                                            <outlet property="startEnd" destination="uHr-f0-JJe" id="m9h-yw-jcM"/>
+                                            <outlet property="meetingDescription" destination="LnQ-Vj-AR3" id="3yH-q6-Atp"/>
+                                            <outlet property="startEndTime" destination="uHr-f0-JJe" id="Vh1-Dc-qsl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -146,8 +146,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="TodayDate" destination="stz-br-NHd" id="lkE-fm-MCe"/>
                         <outlet property="cellTableVieew" destination="gLu-tC-a2M" id="1mX-4k-1W8"/>
+                        <outlet property="todayDate" destination="stz-br-NHd" id="Sx8-IC-PKv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

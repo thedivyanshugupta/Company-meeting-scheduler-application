@@ -12,9 +12,6 @@ class SecondViewController: UIViewController {
     let datePickerSet = UIDatePicker()
     let starttimePickerSet = UIDatePicker()
     let endtimePickerSet = UIDatePicker()
-    var datePickerTapped = 0
-    var starttimePickerTapped = 0
-    var endtimePickerTapped = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,7 +7,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var dayNumber: Double = 1
     var currentDate = Date()
     
-    @IBOutlet weak var TodayDate: UILabel!
+    @IBOutlet weak var todayDate: UILabel!
     
     @IBOutlet weak var cellTableVieew: UITableView!
     
@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let DateInFormat = dateFormatter.string(from: todaysDate)
-        TodayDate.text = DateInFormat
+        todayDate.text = DateInFormat
         getMeetingData(meetingDate: DateInFormat)
     }
     
@@ -59,8 +59,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView,  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cells") as! Cells
         let number = dictionary[indexPath.row]
-        cell.startEnd.text = "\(number["start_time"] as? String ?? "") - \(number["end_time"] as? String ?? "")"
-        cell.descript.text = number["description"] as? String
+        cell.startEndTime.text = "\(number["start_time"] as? String ?? "") - \(number["end_time"] as? String ?? "")"
+        cell.meetingDescription.text = number["description"] as? String
         return cell
     }
     
@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        TodayDate.text = formatter.string(from: futureDate)
+        todayDate.text = formatter.string(from: futureDate)
         getMeetingData(meetingDate: formatter.string(from: futureDate))
         currentDate = futureDate
     }
@@ -81,7 +81,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        TodayDate.text = formatter.string(from: prevDate)
+        todayDate.text = formatter.string(from: prevDate)
         getMeetingData(meetingDate: formatter.string(from: prevDate))
         currentDate = prevDate
     }
