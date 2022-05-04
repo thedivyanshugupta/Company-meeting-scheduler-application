@@ -4,7 +4,6 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     var dictionary = [[String : Any]]()
-    var dayNumber: Double = 1
     var currentDate = Date()
     
     @IBOutlet weak var todayDate: UILabel!
