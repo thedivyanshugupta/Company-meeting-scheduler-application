@@ -204,7 +204,7 @@
                                     <action selector="backButtonPressed:" destination="662-3X-QWg" eventType="touchUpInside" id="qMv-Bz-fFJ"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Description" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgS-6M-Tpi" userLabel="Meeting Description Text Field">
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgS-6M-Tpi" userLabel="Meeting Description Text Field">
                                 <rect key="frame" x="30" y="372" width="315" height="36"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
@@ -214,7 +214,6 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="descriptionClicked:" destination="uSA-Ot-Z2R" eventType="editingDidEnd" id="7Wv-ax-wN2"/>
                                     <action selector="meetingDescriptionTextField:" destination="662-3X-QWg" eventType="editingDidEnd" id="oXS-WO-xNi"/>
                                 </connections>
                             </textField>

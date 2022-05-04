@@ -4,6 +4,8 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
     var dictionary = [[String : Any]]()
+    var dayNumber: Double = 1
+    var currentDate = Date()
     
     @IBOutlet weak var TodayDate: UILabel!
     
@@ -22,33 +24,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let DateInFormat = dateFormatter.string(from: todaysDate)
         TodayDate.text = DateInFormat
-        print(DateInFormat)
         getMeetingData(meetingDate: DateInFormat)
     }
     
     func getMeetingData(meetingDate: String) {
-        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(meetingDate)")
+        if let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(meetingDate)") {
         let session = URLSession.shared
-        print(meetingDate)
-        let task = session.dataTask(with:serviceUrl!) { (serviceData, serviceResponse, error) in
+        let task = session.dataTask(with:serviceUrl) { (serviceData, serviceResponse, error) in
             if error == nil {
                 let httpResponse = serviceResponse as! HTTPURLResponse
                 if(httpResponse.statusCode == 200) {
                     let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
-// mutableContainers :Specifies that arrays and dictionaries in the returned object are mutable.
-                    if let result = json as? [[String: Any]]
-                    {
+                    if let result = json as? [[String: Any]] {
                         self.jsonParsing(json: result)
-                        print(json)
                     }
                 }
             }
-        }
-        task.resume()
+         }
+         task.resume()
+      }
     }
     
     func jsonParsing(json : [[String: Any]]) {
-        print(json)
         dictionary = json
         DispatchQueue.main.async {
             self.cellTableVieew.reloadData()
@@ -68,31 +65,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func getNextDateMeeting() {
-        let currentDate = Date()
-        var dateComponent = DateComponents()
-        dateComponent.day = 1
-        let futureDate = Calendar.current.date(byAdding: dateComponent, to: currentDate)
-        print(currentDate)
-        print(futureDate!)
+        let futureDate = currentDate.addingTimeInterval(+(1) * 24 * 60 * 60)
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        print(formatter.string(from: futureDate!))
-        TodayDate.text = formatter.string(from: futureDate!)
-        getMeetingData(meetingDate: formatter.string(from: futureDate!))
+        TodayDate.text = formatter.string(from: futureDate)
+        getMeetingData(meetingDate: formatter.string(from: futureDate))
+        currentDate = futureDate
     }
     
     func getPrevDateMeeting() {
-        let prevDate = Date().addingTimeInterval(-1 * 24 * 60 * 60)
-        print(prevDate)
+        let prevDate = currentDate.addingTimeInterval(-(1) * 24 * 60 * 60)
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        print(formatter.string(from: prevDate))
         TodayDate.text = formatter.string(from: prevDate)
         getMeetingData(meetingDate: formatter.string(from: prevDate))
+        currentDate = prevDate
     }
     
     @IBAction func nextButton(_ sender: Any) {

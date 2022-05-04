@@ -4,8 +4,6 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
-    var dictionary = [[String : Any]]()
-    
     @IBOutlet weak var meetingDescriptionTextfield: UITextField!
     @IBOutlet weak var meetingTextfield: UITextField!
     @IBOutlet weak var startTimeTextfield: UITextField!
@@ -14,8 +12,10 @@ class SecondViewController: UIViewController {
     let datePickerSet = UIDatePicker()
     let starttimePickerSet = UIDatePicker()
     let endtimePickerSet = UIDatePicker()
-    var textfield = UITextField()
-
+    var datePickerTapped = 0
+    var starttimePickerTapped = 0
+    var endtimePickerTapped = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createDatePicker()
@@ -33,8 +33,7 @@ class SecondViewController: UIViewController {
         datePickerSet.datePickerMode = .date
         datePickerSet.preferredDatePickerStyle = .inline
     }
-
-    @objc func donePressed () {
+    @objc func donePressed() {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .none
@@ -60,7 +59,6 @@ class SecondViewController: UIViewController {
         formatter2.timeStyle = .short
         formatter2.dateFormat = "HH:mm"
         startTimeTextfield.text = formatter2.string(from: starttimePickerSet.date)
-        print(formatter2.string(from: starttimePickerSet.date))
         self.view.endEditing(true)
     }
     
@@ -81,7 +79,6 @@ class SecondViewController: UIViewController {
         formatter2.timeStyle = .short
         formatter2.dateFormat = "HH:mm"
         endTimeTextfield.text = formatter2.string(from: endtimePickerSet.date)
-        print(formatter2.string(from: endtimePickerSet.date))
         self.view.endEditing(true)
     }
     
@@ -90,22 +87,18 @@ class SecondViewController: UIViewController {
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        print(formatter.string(from: datePickerSet.date))
         let formatter2 = DateFormatter()
         formatter2.timeZone = .current
         formatter2.locale = .current
         formatter2.dateFormat = "HH:mm"
-//        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: datePicker.date))")
         let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: datePickerSet.date))")
         let session = URLSession.shared
-        print(datePickerSet.date)
         let task = session.dataTask(with:serviceUrl!) { [self] (serviceData, serviceResponse, error) in
             if error == nil {
                 let httpResponse = serviceResponse as! HTTPURLResponse
                 if(httpResponse.statusCode == 200) {
                     let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
                     if let result = json as? [[String: Any]] {
-                        self.jsonParsing(json: result)
                         var slot = 0
                         for jsonElement in result {
                             var meetingStartTime = "\(jsonElement["start_time"] as? String ?? "")"
@@ -116,17 +109,17 @@ class SecondViewController: UIViewController {
                             if meetingEndTime.count == 4 {
                                 meetingEndTime = "0" + meetingEndTime
                             }
-                            print(meetingStartTime)
-                            print(meetingEndTime)
-                            print(formatter2.string(from: starttimePickerSet.date))
-                            print(formatter2.string(from: endtimePickerSet.date))
-                            
-                            if (formatter2.string(from: starttimePickerSet.date) >= meetingStartTime && formatter2.string(from: starttimePickerSet.date) <= meetingEndTime) || (formatter2.string(from: endtimePickerSet.date) >= meetingStartTime && formatter2.string(from: endtimePickerSet.date) <= meetingEndTime) {
+                            if (formatter2.string(from: starttimePickerSet.date) >= meetingStartTime && formatter2.string(from: starttimePickerSet.date) <= meetingEndTime) || (formatter2.string(from: endtimePickerSet.date) >= meetingStartTime && formatter2.string(from: endtimePickerSet.date) <= meetingEndTime) || (meetingStartTime >= formatter2.string(from: starttimePickerSet.date) && meetingStartTime <= formatter2.string(from: endtimePickerSet.date)) || (meetingEndTime >= formatter2.string(from: starttimePickerSet.date) && meetingEndTime <= formatter2.string(from: endtimePickerSet.date)) {
                                 slot = slot + 1
                             }
                         }
                         print(slot)
-                        if slot == 0 {
+                        
+                        if endTimeTextfield.text == "End Time                                 ▼ " || startTimeTextfield.text == "Start Time                               ▼ " || meetingTextfield.text == "Meeting Date                          ▼ " {
+                            DispatchQueue.main.async {
+                            showAlertForAllMeetingDetails(title: "Enter all meeting details", message: "")
+                            }
+                        } else if slot == 0 {
                             DispatchQueue.main.async {
 
                                 showAlert(title: "Slot Available", message: "")
@@ -143,17 +136,19 @@ class SecondViewController: UIViewController {
         task.resume()
     }
 
-    func showAlert(title: String, message: String){
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)}))
+            self.present(alert, animated: true, completion: nil)
+        }
+    
+    func showAlertForAllMeetingDetails(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
             self.present(alert, animated: true, completion: nil)
         }
-    
-    func jsonParsing(json : [[String: Any]]) {
-        print(json)
-        dictionary = json
-    }
-    
+
     @IBAction func submitButtonPresed(_ sender: Any) {
         getData()
     }

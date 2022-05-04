@@ -81,6 +81,7 @@
 		1CA3EA8F281A4F0900C4DC9F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C595B8D281684FC00EFDCE0 /* MeetingDescriptionCell.swift */,
 				1C595B89281684AF00EFDCE0 /* Main.storyboard */,
 			);
 			path = View;
@@ -91,7 +92,6 @@
 			children = (
 				1C74FDA82816D51900F3DAA7 /* TodayMeetingController.swift */,
 				1C595B8F2816858C00EFDCE0 /* ScheduleAMeetingController.swift */,
-				1C595B8D281684FC00EFDCE0 /* MeetingDescriptionCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
