@@ -88,49 +88,49 @@ class SecondViewController: UIViewController {
         formatter2.timeZone = .current
         formatter2.locale = .current
         formatter2.dateFormat = "HH:mm"
-        let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: datePickerSet.date))")
-        let session = URLSession.shared
-        let task = session.dataTask(with:serviceUrl!) { [self] (serviceData, serviceResponse, error) in
-            if error == nil {
-                let httpResponse = serviceResponse as! HTTPURLResponse
-                if(httpResponse.statusCode == 200) {
-                    let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
-                    if let result = json as? [[String: Any]] {
-                        var slot = 0
-                        for jsonElement in result {
-                            var meetingStartTime = "\(jsonElement["start_time"] as? String ?? "")"
-                            var meetingEndTime = "\(jsonElement["end_time"] as? String ?? "")"
-                            if meetingStartTime.count == 4 {
-                                meetingStartTime = "0" + meetingStartTime
-                            }
-                            if meetingEndTime.count == 4 {
-                                meetingEndTime = "0" + meetingEndTime
-                            }
-                            if (formatter2.string(from: starttimePickerSet.date) >= meetingStartTime && formatter2.string(from: starttimePickerSet.date) <= meetingEndTime) || (formatter2.string(from: endtimePickerSet.date) >= meetingStartTime && formatter2.string(from: endtimePickerSet.date) <= meetingEndTime) || (meetingStartTime >= formatter2.string(from: starttimePickerSet.date) && meetingStartTime <= formatter2.string(from: endtimePickerSet.date)) || (meetingEndTime >= formatter2.string(from: starttimePickerSet.date) && meetingEndTime <= formatter2.string(from: endtimePickerSet.date)) {
-                                slot = slot + 1
-                            }
-                        }
-                        print(slot)
-                        
-                        if endTimeTextfield.text == "End Time                                 ▼ " || startTimeTextfield.text == "Start Time                               ▼ " || meetingTextfield.text == "Meeting Date                          ▼ " {
-                            DispatchQueue.main.async {
-                            showAlertForAllMeetingDetails(title: "Enter all meeting details", message: "")
-                            }
-                        } else if slot == 0 {
-                            DispatchQueue.main.async {
-
-                                showAlert(title: "Slot Available", message: "")
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                showAlert(title: "Slot Not Available", message: "")
+        if let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(formatter.string(from: datePickerSet.date))") {
+            let session = URLSession.shared
+            let task = session.dataTask(with:serviceUrl) { [self] (serviceData ,serviceResponse, error) in
+                if error == nil {
+                    if let serviceDataVariable = serviceData {
+                        let httpResponse = serviceResponse as! HTTPURLResponse
+                        if(httpResponse.statusCode == 200) {
+                            let json = try? JSONSerialization.jsonObject (with: serviceDataVariable, options: .mutableContainers)
+                            if let result = json as? [[String: Any]] {
+                                var slot = 0
+                                for jsonElement in result {
+                                    var meetingStartTime = "\(jsonElement["start_time"] as? String ?? "")"
+                                    var meetingEndTime = "\(jsonElement["end_time"] as? String ?? "")"
+                                    if meetingStartTime.count == 4 {
+                                        meetingStartTime = "0" + meetingStartTime
+                                    }
+                                    if meetingEndTime.count == 4 {
+                                        meetingEndTime = "0" + meetingEndTime
+                                    }
+                                    if (formatter2.string(from: starttimePickerSet.date) >= meetingStartTime && formatter2.string(from: starttimePickerSet.date) <= meetingEndTime) || (formatter2.string(from: endtimePickerSet.date) >= meetingStartTime && formatter2.string(from: endtimePickerSet.date) <= meetingEndTime) || (meetingStartTime >= formatter2.string(from: starttimePickerSet.date) && meetingStartTime <= formatter2.string(from: endtimePickerSet.date)) || (meetingEndTime >= formatter2.string(from: starttimePickerSet.date) && meetingEndTime <= formatter2.string(from: endtimePickerSet.date)) {
+                                        slot = slot + 1
+                                    }
+                                }
+                                if endTimeTextfield.text == "" || startTimeTextfield.text == "" || meetingTextfield.text == "" {
+                                    DispatchQueue.main.async {
+                                        showAlertForAllMeetingDetails(title: "Enter all meeting details", message: "")
+                                    }
+                                } else if slot == 0 {
+                                    DispatchQueue.main.async {
+                                        showAlert(title: "Slot Available", message: "")
+                                    }
+                                } else {
+                                    DispatchQueue.main.async {
+                                        showAlert(title: "Slot Not Available", message: "")
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
+            task.resume()
         }
-        task.resume()
     }
 
     func showAlert(title: String, message: String) {

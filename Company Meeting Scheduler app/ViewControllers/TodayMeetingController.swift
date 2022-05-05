@@ -28,20 +28,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func getMeetingData(meetingDate: String) {
         if let serviceUrl = URL(string: "https://fathomless-shelf-5846.herokuapp.com/api/schedule?date=\(meetingDate)") {
-        let session = URLSession.shared
-        let task = session.dataTask(with:serviceUrl) { (serviceData, serviceResponse, error) in
-            if error == nil {
-                let httpResponse = serviceResponse as! HTTPURLResponse
-                if(httpResponse.statusCode == 200) {
-                    let json = try? JSONSerialization.jsonObject (with: serviceData!, options: .mutableContainers)
-                    if let result = json as? [[String: Any]] {
-                        self.jsonParsing(json: result)
+            let session = URLSession.shared
+            let task = session.dataTask(with:serviceUrl) { (serviceData, serviceResponse, error) in
+                if error == nil {
+                    if let serviceDataVariable = serviceData {
+                        let httpResponse = serviceResponse as! HTTPURLResponse
+                        if(httpResponse.statusCode == 200) {
+                            let json = try? JSONSerialization.jsonObject (with: serviceDataVariable, options: .mutableContainers)
+                            if let result = json as? [[String: Any]] {
+                                self.jsonParsing(json: result)
+                            }
+                        }
                     }
                 }
             }
-         }
-         task.resume()
-      }
+            task.resume()
+        }
     }
     
     func jsonParsing(json : [[String: Any]]) {
