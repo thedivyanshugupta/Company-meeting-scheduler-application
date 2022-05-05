@@ -3,7 +3,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    var dictionary = [[String : Any]]()
+    var dataDictionary = [[String : Any]]()
     var currentDate = Date()
     
     @IBOutlet weak var todayDate: UILabel!
@@ -47,19 +47,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func jsonParsing(json : [[String: Any]]) {
-        dictionary = json
+        dataDictionary = json
         DispatchQueue.main.async {
             self.cellTableVieew.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dictionary.count
+        return dataDictionary.count
     }
 
     func tableView(_ tableView: UITableView,  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cells") as! Cells
-        let number = dictionary[indexPath.row]
+        let number = dataDictionary[indexPath.row]
         cell.startEndTime.text = "\(number["start_time"] as? String ?? "") - \(number["end_time"] as? String ?? "")"
         cell.meetingDescription.text = number["description"] as? String
         return cell
