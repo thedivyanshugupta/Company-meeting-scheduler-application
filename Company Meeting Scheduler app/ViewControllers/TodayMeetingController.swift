@@ -32,11 +32,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let task = session.dataTask(with:serviceUrl) { (serviceData, serviceResponse, error) in
                 if error == nil {
                     if let serviceDataVariable = serviceData {
-                        let httpResponse = serviceResponse as! HTTPURLResponse
-                        if(httpResponse.statusCode == 200) {
-                            let json = try? JSONSerialization.jsonObject (with: serviceDataVariable, options: .mutableContainers)
-                            if let result = json as? [[String: Any]] {
-                                self.jsonParsing(json: result)
+                        if let httpResponse = serviceResponse as? HTTPURLResponse{
+                            if(httpResponse.statusCode == 200) {
+                                let json = try? JSONSerialization.jsonObject (with: serviceDataVariable, options: .mutableContainers)
+                                if let result = json as? [[String: Any]] {
+                                    self.jsonParsing(json: result)
+                                }
                             }
                         }
                     }
@@ -58,41 +59,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView,  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cells") as! Cells
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cells") as? Cells else { return UITableViewCell() }
         let number = dataDictionary[indexPath.row]
         cell.startEndTime.text = "\(number["start_time"] as? String ?? "") - \(number["end_time"] as? String ?? "")"
         cell.meetingDescription.text = number["description"] as? String
         return cell
     }
     
-    func getNextDateMeeting() {
-        let futureDate = currentDate.addingTimeInterval(+(1) * 24 * 60 * 60)
+    func getNextOrPrevDateMeeting(dayNumber: Double) {
+        let newDate = currentDate.addingTimeInterval(+(dayNumber) * 24 * 60 * 60)
         let formatter = DateFormatter()
         formatter.timeZone = .current
         formatter.locale = .current
         formatter.dateFormat = "dd/MM/yyyy"
-        todayDate.text = formatter.string(from: futureDate)
-        getMeetingData(meetingDate: formatter.string(from: futureDate))
-        currentDate = futureDate
-    }
-    
-    func getPrevDateMeeting() {
-        let prevDate = currentDate.addingTimeInterval(-(1) * 24 * 60 * 60)
-        let formatter = DateFormatter()
-        formatter.timeZone = .current
-        formatter.locale = .current
-        formatter.dateFormat = "dd/MM/yyyy"
-        todayDate.text = formatter.string(from: prevDate)
-        getMeetingData(meetingDate: formatter.string(from: prevDate))
-        currentDate = prevDate
+        todayDate.text = formatter.string(from: newDate)
+        getMeetingData(meetingDate: formatter.string(from: newDate))
+        currentDate = newDate
     }
     
     @IBAction func nextButton(_ sender: Any) {
-       getNextDateMeeting()
+       getNextOrPrevDateMeeting(dayNumber: 1)
     }
 
     @IBAction func prevButton(_ sender: Any) {
-        getPrevDateMeeting()
+        getNextOrPrevDateMeeting(dayNumber: -1)
     }
 
 }
